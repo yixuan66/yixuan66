@@ -1,0 +1,292 @@
+mixed-port: 7890
+allow-lan: true
+mode: Rule
+log-level: debug
+external-controller: 127.0.0.1:9090
+rule-providers:
+    AI:
+        type: http
+        behavior: classical
+        url: https://raw.githubusercontent.com/yixuan66/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
+        interval: 86400
+    Pixiv:
+        type: http
+        behavior: classical
+        url: https://raw.githubusercontent.com/yixuan66/ios_rule_script/master/rule/Clash/Pixiv/Pixiv.yaml
+        interval: 86400
+    bilibili:
+        type: http
+        behavior: classical
+        url: https://raw.githubusercontent.com/yixuan66/ios_rule_script/master/rule/Clash/BiliBili/BiliBili.yaml
+        interval: 86400
+    china:
+        type: http
+        behavior: classical
+        url: https://raw.githubusercontent.com/yixuan66/ios_rule_script/master/rule/Clash/ChinaMax/ChinaMax.yaml
+        interval: 86400
+    chinaip:
+        type: http
+        behavior: ipcidr
+        url: https://raw.githubusercontent.com/yixuan66/ios_rule_script/master/rule/Clash/ChinaMax/ChinaMax_IP.yaml
+        interval: 86400
+    emby:
+        type: http
+        behavior: classical
+        url: https://raw.githubusercontent.com/loveKisara/sub/main/Emby.yaml
+        interval: 86400
+    github:
+        type: http
+        behavior: classical
+        url: https://raw.githubusercontent.com/yixuan66/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml
+        interval: 86400
+    google:
+        type: http
+        behavior: classical
+        url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml
+        interval: 86400
+    hanime1:
+        type: http
+        behavior: classical
+        url: https://raw.githubusercontent.com/loveKisara/sub/main/hanime1.yaml
+        interval: 86400
+    microsoft:
+        type: http
+        behavior: classical
+        url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
+        interval: 86400
+    telegram:
+        type: http
+        behavior: classical
+        url: https://raw.githubusercontent.com/yixuan66/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml
+        interval: 86400
+dns:
+    enable: true
+proxies:
+    - type: ss
+      name: 香港
+      server: 47.238.196.177
+      port: 12370
+      password: JoabGCMmWr
+      cipher: aes-256-gcm
+    - type: vmess
+      name: 香港 1
+      server: 8.217.117.57
+      port: 8080
+      uuid: b2ba8665-cc2d-4861-d263-20376651b41e
+      alterId: 0
+      cipher: auto
+      network: ws
+      ws-opts:
+        path: /mypath?ed=2560
+        headers:
+            Host: 8.217.117.57
+    - type: vmess
+      name: 亚马逊-日本
+      server: 54.249.109.193
+      port: 12691
+      uuid: 68f962f9-1ee1-4dc1-861c-e24d4d3d43e6
+      alterId: 0
+      cipher: auto
+    - type: vmess
+      name: 新加坡
+      server: 8.219.207.29
+      port: 40453
+      uuid: 79295e44-9a18-452d-8313-5bc2d9e54149
+      alterId: 0
+      cipher: auto
+    - type: vmess
+      name: 5-22 美国
+      server: 107.172.22.201
+      port: 35922
+      uuid: ae82e0f5-3cf3-4b52-af15-e891c3f72b15
+      alterId: 0
+      cipher: auto
+    - type: vmess
+      name: ""
+      server: 54.72.31.204
+      port: 20292
+      uuid: 57f5c2bd-bb79-4fd8-eea1-a84d1ddf3a21
+      alterId: 0
+      cipher: auto
+      network: ws
+      ws-opts:
+        path: /
+        headers:
+            Host: 54.72.31.204
+    - type: vmess
+      name: 香港 2
+      server: 38.207.173.218
+      port: 32903
+      uuid: bafb14a6-3393-49b5-9cdb-1a807535b0a3
+      alterId: 0
+      cipher: auto
+    - type: ss
+      name: asdasd
+      server: 54.72.31.204
+      port: 443
+      password: dalXpfZoem
+      cipher: aes-256-gcm
+    - type: vmess
+      name: vmess ws|allB.love@xray.com
+      server: 52.63.1.60
+      port: 43553
+      uuid: 5c240b3e-efdd-4759-de1d-b7fe1f52647f
+      alterId: 0
+      cipher: auto
+      network: ws
+      ws-opts:
+        path: /5c240b3e
+        headers:
+            Host: 52.63.1.60
+    - type: vmess
+      name: 台湾-原生ip
+      server: 103.159.207.122
+      port: 29001
+      uuid: 30526ea5-cccf-4a63-edad-2983e4164ec5
+      alterId: 0
+      cipher: auto
+      network: ws
+      ws-opts:
+        path: /0
+        headers:
+            Host: 103.159.207.122
+proxy-groups:
+    - type: select
+      name: ❤️ 利姆鲁
+      proxies:
+        - 香港
+        - 香港 1
+        - 亚马逊-日本
+        - 新加坡
+        - 5-22 美国
+        - ""
+        - 香港 2
+        - asdasd
+        - vmess ws|allB.love@xray.com
+        - 台湾-原生ip
+        - DIRECT
+      lazy: false
+    - type: select
+      name: ☁️ Telegram
+      proxies:
+        - ❤️ 利姆鲁
+        - 香港
+        - 香港 1
+        - 亚马逊-日本
+        - 新加坡
+        - 5-22 美国
+        - ""
+        - 香港 2
+        - asdasd
+        - vmess ws|allB.love@xray.com
+        - 台湾-原生ip
+        - DIRECT
+      lazy: false
+    - type: select
+      name: "\U0001F916 AI"
+      proxies:
+        - ❤️ 利姆鲁
+        - 香港
+        - 香港 1
+        - 亚马逊-日本
+        - 新加坡
+        - 5-22 美国
+        - ""
+        - 香港 2
+        - asdasd
+        - vmess ws|allB.love@xray.com
+        - 台湾-原生ip
+        - DIRECT
+      lazy: false
+    - type: select
+      name: "\U0001F4FA EMBY"
+      proxies:
+        - ❤️ 利姆鲁
+        - 香港
+        - 香港 1
+        - 亚马逊-日本
+        - 新加坡
+        - 5-22 美国
+        - ""
+        - 香港 2
+        - asdasd
+        - vmess ws|allB.love@xray.com
+        - 台湾-原生ip
+        - DIRECT
+      lazy: false
+    - type: select
+      name: "\U0001F4FA BiliBili"
+      proxies:
+        - ❤️ 利姆鲁
+        - 香港
+        - 香港 1
+        - 亚马逊-日本
+        - 新加坡
+        - 5-22 美国
+        - ""
+        - 香港 2
+        - asdasd
+        - vmess ws|allB.love@xray.com
+        - 台湾-原生ip
+        - DIRECT
+      lazy: false
+    - type: select
+      name: hanime1
+      proxies:
+        - ❤️ 利姆鲁
+        - 香港
+        - 香港 1
+        - 亚马逊-日本
+        - 新加坡
+        - 5-22 美国
+        - ""
+        - 香港 2
+        - asdasd
+        - vmess ws|allB.love@xray.com
+        - 台湾-原生ip
+        - DIRECT
+      lazy: false
+    - type: select
+      name: "\U0001F3AF 全球直连"
+      proxies:
+        - 香港
+        - 香港 1
+        - 亚马逊-日本
+        - 新加坡
+        - 5-22 美国
+        - ""
+        - 香港 2
+        - asdasd
+        - vmess ws|allB.love@xray.com
+        - 台湾-原生ip
+        - DIRECT
+      lazy: false
+    - type: select
+      name: "\U0001F41F 漏网之鱼"
+      proxies:
+        - ❤️ 利姆鲁
+        - 香港
+        - 香港 1
+        - 亚马逊-日本
+        - 新加坡
+        - 5-22 美国
+        - ""
+        - 香港 2
+        - asdasd
+        - vmess ws|allB.love@xray.com
+        - 台湾-原生ip
+        - DIRECT
+      lazy: false
+rules:
+    - RULE-SET,telegram,☁️ Telegram
+    - "RULE-SET,bilibili,\U0001F4FA BiliBili"
+    - "RULE-SET,emby,\U0001F4FA EMBY"
+    - "RULE-SET,AI,\U0001F916 AI"
+    - RULE-SET,hanime1,hanime1
+    - RULE-SET,google,❤️ 利姆鲁
+    - RULE-SET,microsoft,❤️ 利姆鲁
+    - RULE-SET,github,❤️ 利姆鲁
+    - RULE-SET,Pixiv,❤️ 利姆鲁
+    - "RULE-SET,china,\U0001F3AF 全球直连"
+    - "RULE-SET,chinaip,\U0001F3AF 全球直连"
+    - "MATCH,\U0001F41F 漏网之鱼"
