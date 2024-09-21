@@ -1,0 +1,236 @@
+mixed-port: 7890
+allow-lan: true
+mode: Rule
+log-level: debug
+external-controller: 127.0.0.1:9090
+dns:
+    enable: true
+    ipv6: false
+    default-nameserver: [223.5.5.5, 119.29.29.29]
+    enhanced-mode: fake-ip
+    fake-ip-range: 198.18.0.1/16
+    use-hosts: true
+    nameserver: ['https://doh.pub/dns-query', 'https://dns.cloudflare.com/dns-query']
+    fallback: ['https://doh.dns.sb/dns-query', 'https://dns.twnic.tw/dns-query', 'tls://8.8.4.4:853']
+    fallback-filter: { geoip: true, ipcidr: [240.0.0.0/4, 0.0.0.0/32] }
+proxy-providers:
+  老王的屁股:
+    type: http
+    url: "https://mysub.lovekisara.top/sub/v2ray/6ICB546L"
+    interval: 86400
+    header:
+      User-Agent:
+      - "mihomo/1.18.8"
+    override:
+      additional-prefix: "[老王的屁股]"
+proxy-groups:
+  - name: ❤️ 利姆鲁
+    type: select
+    url: https://cp.cloudflare.com/generate_204
+    timeout: 5000
+    include-all-providers: true
+    icon: https://raw.githubusercontent.com/yixuan66/yixuan66/main/IMG_20240902_185658_998.jpg
+    proxies:
+      - 🎯 全球直连
+  - name: ☁️ Telegram
+    type: select
+    include-all-providers: false
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram_X.png
+    proxies:
+      - 🇸🇬 新加坡
+      - ❤️ 利姆鲁
+      - 🇭🇰 香港
+  - name: 🤖 AI
+    type: select
+    include-all-providers: false
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bot.png
+    proxies:
+      - 🇯🇵 日本
+      - 🇺🇸 美国
+      - 🇸🇬 新加坡
+  - name: 📺 EMBY
+    type: select
+    include-all-providers: true
+    #筛选emby节点和低倍率节点
+    filter: "(?i)(emby|0.01x|0.3x|0.5x|0.8x)"
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Emby.png
+    proxies:
+      - ❤️ 利姆鲁
+      - 🇭🇰 香港
+      - 🎯 全球直连
+  - name: 📺 BiliBili
+    type: select
+    include-all-providers: false
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/bilibili_4.png
+    proxies:
+      - 🎯 全球直连
+      - 🇭🇰 香港
+      - 🇹🇼 台湾
+      - 🇲🇴 澳门
+      - ❤️ 利姆鲁
+  - name: 🎮 Mihoyo
+    type: select
+    include-all-providers: false
+    icon: https://raw.githubusercontent.com/loveKisara/sub/refs/heads/main/icon.png
+    proxies:
+      - 🎯 全球直连
+      - 🇭🇰 香港
+  - name: hanime1
+    type: select
+    include-all-providers: false
+    icon: https://raw.githubusercontent.com/YenalyLiew/Han1meViewer/master/icon/icon_transparent_han1me_viewer-rurires.png
+    proxies:
+      - 🇭🇰 香港
+      - ❤️ 利姆鲁
+      - 🇹🇼 台湾
+      - 🇺🇸 美国
+  - name: 🇭🇰 香港
+    type: url-test
+    url: https://cp.cloudflare.com/generate_204
+    timeout: 3600
+    interval: 3600
+    tolerance: 50
+    include-all-providers: true
+    #筛选香港节点
+    filter: "(?i)港|hk|hongkong|hong kong"
+    #排除高倍率节点
+    exclude-filter: "(?i)(3x|5x|10x|20x|3.0x|5.0x)"
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png
+  - name: 🇺🇸 美国
+    type: url-test
+    url: https://cp.cloudflare.com/generate_204
+    timeout: 3600
+    interval: 3600
+    tolerance: 50
+    include-all-providers: true
+    filter: "(?i)美|us|unitedstates|united states"
+    exclude-filter: "(?i)(3x|5x|10x|20x|3.0x|5.0x)"
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png
+  - name: 🇹🇼 台湾
+    type: url-test
+    url: https://cp.cloudflare.com/generate_204
+    timeout: 3600
+    interval: 3600
+    tolerance: 50
+    include-all-providers: true
+    filter: "(?i)台|tw|taiwan"
+    exclude-filter: "(?i)(3x|5x|10x|20x|3.0x|5.0x)"
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png
+  - name: 🇸🇬 新加坡
+    type: url-test
+    url: https://cp.cloudflare.com/generate_204
+    timeout: 3600
+    interval: 3600
+    tolerance: 50
+    include-all-providers: true
+    filter: "(?i)新|sg|singapore"
+    exclude-filter: "(?i)(3x|5x|10x|20x|3.0x|5.0x)"
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png
+  - name: 🇯🇵 日本
+    type: url-test
+    url: https://cp.cloudflare.com/generate_204
+    timeout: 3600
+    interval: 3600
+    tolerance: 50
+    include-all-providers: true
+    filter: "(?i)日本|jp|japan"
+    exclude-filter: "(?i)(3x|5x|10x|20x|3.0x|5.0x)"
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png
+  - name: 🇲🇴 澳门
+    type: url-test
+    url: https://cp.cloudflare.com/generate_204
+    timeout: 3600
+    interval: 3600
+    tolerance: 50
+    include-all-providers: true
+    filter: "(?i)(澳|macao|mac)"
+    exclude-filter: "(?i)(3x|5x|10x|20x|3.0x|5.0x)"
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Macao.png
+  - name: 🎯 全球直连
+    type: select
+    include-all-providers: false
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png
+    proxies:
+      - DIRECT
+  - name: 🐟 漏网之鱼
+    type: select
+    include-all-providers: false
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/WiFi.png
+    proxies:
+      - ❤️ 利姆鲁
+      - 🎯 全球直连
+rule-providers:
+    telegram:
+      type: http
+      behavior: classical
+      url: 'https://raw.githubusercontent.com/yixuan66/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml'
+      interval: 86400
+    bilibili:
+      type: http
+      behavior: classical
+      url: 'https://raw.githubusercontent.com/yixuan66/ios_rule_script/master/rule/Clash/BiliBili/BiliBili.yaml'
+      interval: 86400
+    microsoft:
+      type: http
+      behavior: classical
+      url: 'https://mirror.ghproxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml'
+      interval: 86400
+    google:
+      type: http
+      behavior: classical
+      url: 'https://mirror.ghproxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml'
+      interval: 86400
+    china:
+      type: http
+      behavior: classical
+      url: 'https://raw.githubusercontent.com/yixuan66/ios_rule_script/master/rule/Clash/ChinaMax/ChinaMax.yaml'
+      interval: 86400
+    chinaip:
+      type: http
+      behavior: ipcidr
+      url: 'https://raw.githubusercontent.com/yixuan66/ios_rule_script/master/rule/Clash/ChinaMax/ChinaMax_IP.yaml'
+      interval: 86400
+    emby:
+      type: http
+      behavior: classical
+      url: 'https://raw.githubusercontent.com/loveKisara/sub/main/Emby.yaml'
+      interval: 86400
+    AI:
+      type: http
+      behavior: classical
+      url: 'https://raw.githubusercontent.com/yixuan66/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml'
+      interval: 86400
+    github:
+      type: http
+      behavior: classical
+      url: 'https://raw.githubusercontent.com/yixuan66/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml'
+      interval: 86400
+    Pixiv:
+      type: http
+      behavior: classical
+      url: 'https://raw.githubusercontent.com/yixuan66/ios_rule_script/master/rule/Clash/Pixiv/Pixiv.yaml'
+      interval: 86400
+    hanime1:
+      type: http
+      behavior: classical
+      url: 'https://raw.githubusercontent.com/loveKisara/sub/main/hanime1.yaml'
+      interval: 86400
+    mihoyo:
+      type: http
+      behavior: classical
+      url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/HoYoverse/HoYoverse.yaml'
+      interval: 86400
+rules:
+    - 'RULE-SET,telegram,☁️ Telegram'
+    - 'RULE-SET,bilibili,📺 BiliBili'
+    - 'RULE-SET,emby,📺 EMBY'
+    - 'RULE-SET,AI,🤖 AI'
+    - 'RULE-SET,hanime1,hanime1'
+    - 'RULE-SET,mihoyo,🎮 Mihoyo'
+    - 'RULE-SET,google,❤️ 利姆鲁'
+    - 'RULE-SET,microsoft,❤️ 利姆鲁'
+    - 'RULE-SET,github,❤️ 利姆鲁'
+    - 'RULE-SET,Pixiv,❤️ 利姆鲁'
+    - 'RULE-SET,china,🎯 全球直连'
+    - 'RULE-SET,chinaip,🎯 全球直连'
+    - 'MATCH,🐟 漏网之鱼'
